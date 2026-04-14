@@ -27,23 +27,23 @@ function App() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // fetch('https://fakestoreapi.com/products')
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     setProducts(data)
-    //     setLoading(false)
-    //   })
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch('https://fakestoreapi.com/products')
+        const data = await res.json()
+        setProducts(data)
+        setLoading(false)
+      } catch (error) {
+        console.error('Error fetching products:', error)
+        setLoading(false)
+      }
+    }
 
-    // const a = async ()=>{
-
-    // }
-    // a();
-  async function getdata(){
-      const data1 = await 
-  }
-  getdata();
-
+    fetchProducts()
   }, [])
+
+  // reduce — total price of all products
+  const totalPrice = products.reduce((acc, i) => acc + i.price, 0)
 
   return (
     <div className="app">
@@ -53,12 +53,19 @@ function App() {
         <h1 className="page-title">Our Products</h1>
         <p className="page-subtitle">Discover our wide range of quality products</p>
 
+        {/* display total price */}
+        {!loading && (
+          <p className="total-banner">
+            🛍️ Total value of all products: <strong>${totalPrice.toFixed(2)}</strong>
+          </p>
+        )}
+
         {loading ? (
           <p className="loading">Loading products...</p>
         ) : (
           <div className="product-grid">
             {products.map(i => (
-              <ProductCard   product={i} />
+              <ProductCard key={i.id} product={i} />
             ))}
           </div>
         )}
