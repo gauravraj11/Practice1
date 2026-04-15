@@ -27,21 +27,12 @@ function App() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // fetch('https://fakestoreapi.com/products')
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     setProducts(data)
-    //     setLoading(false)
-    //   })
-
-    // const a = async ()=>{
-
-    // }
-    // a();
-  async function getdata(){
-      const data1 = await 
-  }
-  getdata();
+    fetch('https://fakestoreapi.com/products')
+      .then(res => res.json())
+      .then(data => {
+        setProducts(data)
+        setLoading(false)
+      })
 
   }, [])
 
